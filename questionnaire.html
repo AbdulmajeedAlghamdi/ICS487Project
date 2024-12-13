@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Questionnaire</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .question select, .question input[type="radio"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PC Questionnaire</h1>
+        <form id="questionnaire" action="processing2.html" method="GET">
+            <!-- Purpose -->
+            <div class="question">
+                <label for="purpose">What’s your primary purpose for this PC?</label>
+                <select id="purpose" name="purpose">
+                    <option value="Gaming">Gaming</option>
+                    <option value="Video Editing">Video Editing</option>
+                    <option value="3D Designing">3D Designing</option>
+                    <option value="General Use">General Use</option>
+                    <option value="Office Work">Office Work</option>
+                </select>
+            </div>
+
+            <!-- Budget -->
+            <div class="question">
+                <label for="budget">What is your budget range (in SAR)?</label>
+                <select id="budget" name="budget">
+                    <option value="2500">Less than 2,500 SAR</option>
+                    <option value="5000">2,500 - 5,000 SAR</option>
+                    <option value="10000">5,000 - 10,000 SAR</option>
+                    <option value="10001">Above 10,000 SAR</option>
+                </select>
+            </div>
+
+            <!-- RGB Lighting -->
+            <div class="question">
+                <label>Do you need RGB lighting?</label>
+                <input type="radio" name="rgb" value="Yes" checked> Yes<br>
+                <input type="radio" name="rgb" value="No"> No
+            </div>
+
+            <!-- Cooling System -->
+            <div class="question">
+                <label for="cooling">What type of cooling system do you prefer?</label>
+                <select id="cooling" name="cooling">
+                    <option value="Air Cooling">Air Cooling</option>
+                    <option value="Liquid Cooling">Liquid Cooling</option>
+                    <option value="Hybrid">Hybrid</option>
+                </select>
+            </div>
+
+            <!-- Storage Setup -->
+            <div class="question">
+                <label for="storage">What is your preferred storage setup?</label>
+                <select id="storage" name="storage">
+                    <option value="SSD only">SSD only</option>
+                    <option value="HDD only">HDD only</option>
+                    <option value="SSD + HDD">SSD + HDD</option>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

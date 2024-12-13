@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your PC Components</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+
+        .result-item {
+            margin-bottom: 15px;
+        }
+
+        .result-item strong {
+            color: #007BFF;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .back-btn, .rebuild-btn {
+            display: block;
+            width: 48%;
+            padding: 10px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .back-btn:hover, .rebuild-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Recommended PC Build</h1>
+        <div id="results">
+            <div class="result-item" id="cpu"></div>
+            <div class="result-item" id="gpu"></div>
+            <div class="result-item" id="ram"></div>
+            <div class="result-item" id="storage"></div>
+            <div class="result-item" id="motherboard"></div>
+            <div class="result-item" id="case"></div>
+            <div class="result-item" id="psu"></div>
+            <div class="result-item" id="cooling"></div>
+            <div class="result-item" id="aesthetics"></div>
+            <div class="result-item" id="price"></div>
+        </div>
+        <div class="btn-container">
+            <a href="questionnaire.html" class="back-btn">Back to Questionnaire</a>
+            <a href="WelcomePage.html" class="rebuild-btn">Rebuild</a>
+        </div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+
+        // User input values
+        const purpose = params.get('purpose');
+        const budget = parseInt(params.get('budget'));
+        const rgb = params.get('rgb') === 'Yes' ? 'Corsair iCUE RGB Fans (200 SAR)' : 'No RGB';
+        const cooling = params.get('cooling') === 'Liquid Cooling' 
+            ? 'Cooler Master Liquid ML240L RGB (400 SAR)' 
+            : 'Cooler Master Hyper 212 Air (150 SAR)';
+        const storage = params.get('storage');
+
+        // Component recommendations
+        let cpu, gpu, ram, storageType, motherboard, caseType, psu, totalPrice;
+
+        // Storage Types and Prices
+        const storageOptions = {
+            'SSD only': '1TB NVMe SSD (400 SAR)',
+            'HDD only': '2TB HDD (250 SAR)',
+            'SSD + HDD': '1TB NVMe SSD + 2TB HDD (650 SAR)'
+        };
+
+        storageType = storageOptions[storage];
+
+        // Conditional Logic for Each Purpose and Budget
+        if (purpose === 'Gaming') {
+            if (budget <= 5000) {
+                cpu = 'AMD Ryzen 5 3600 (800 SAR)';
+                gpu = 'NVIDIA GTX 1650 Super (1200 SAR)';
+                ram = '16GB DDR4 (300 SAR)';
+                motherboard = 'MSI B450M Pro-M2 Max (400 SAR)';
+                caseType = 'Mid-Tower RGB Case (300 SAR)';
+                psu = '550W 80+ Gold (250 SAR)';
+                totalPrice = 3250 + 400 + 300 + (storage === 'SSD + HDD' ? 650 : storage === 'SSD only' ? 400 : 250);
+            } else if (budget <= 10000) {
+                cpu = 'Intel Core i7 12700K (1500 SAR)';
+                gpu = 'NVIDIA RTX 3060 Ti (2500 SAR)';
+                ram = '32GB DDR4 (700 SAR)';
+                motherboard = 'ASUS TUF Gaming B550-Plus (800 SAR)';
+                caseType = 'Premium RGB Mid-Tower Case (500 SAR)';
+                psu = '750W 80+ Gold (450 SAR)';
+                totalPrice = 5950 + 400 + 700 + (storage === 'SSD + HDD' ? 650 : storage === 'SSD only' ? 400 : 250);
+            } else {
+                cpu = 'AMD Ryzen 9 7900X (2000 SAR)';
+                gpu = 'NVIDIA RTX 4080 (6500 SAR)';
+                ram = '64GB DDR5 (2000 SAR)';
+                motherboard = 'ASUS ROG Crosshair X670E Hero (2500 SAR)';
+                caseType = 'Full Tower Premium RGB Case (1000 SAR)';
+                psu = '1000W 80+ Platinum (900 SAR)';
+                totalPrice = 14900 + 400 + 2000 + (storage === 'SSD + HDD' ? 650 : storage === 'SSD only' ? 400 : 250);
+            }
+        } else if (purpose === '3D Designing' || purpose === 'Video Editing') {
+            if (budget <= 5000) {
+                cpu = 'AMD Ryzen 5 5600X (850 SAR)';
+                gpu = 'NVIDIA GTX 1660 Super (1200 SAR)';
+                ram = '16GB DDR4 (300 SAR)';
+                motherboard = 'MSI B450 TOMAHAWK MAX II (450 SAR)';
+                caseType = 'Mid-Tower Case (300 SAR)';
+                psu = '550W 80+ Gold (250 SAR)';
+                totalPrice = 3000 + (storage === 'SSD + HDD' ? 650 : 400) + (cooling.includes('Liquid') ? 400 : 150);
+            } else {
+                cpu = 'Intel Core i9 12900K (2200 SAR)';
+                gpu = 'NVIDIA RTX 3070 Ti (3200 SAR)';
+                ram = '32GB DDR4 (700 SAR)';
+                motherboard = 'ASUS TUF Gaming Z590-Plus (1000 SAR)';
+                caseType = 'Full Tower RGB Case (700 SAR)';
+                psu = '850W 80+ Platinum (600 SAR)';
+                totalPrice = 8000 + (storage === 'SSD + HDD' ? 650 : 400) + (cooling.includes('Liquid') ? 400 : 150);
+            }
+        } else if (purpose === 'General Use') {
+            if (budget <= 5000) {
+                cpu = 'Intel Core i3 12100F (350 SAR)';
+                gpu = 'Integrated Graphics';
+                ram = '8GB DDR4 (150 SAR)';
+                motherboard = 'ASUS Prime B560M (400 SAR)';
+                caseType = 'Compact ATX Case (300 SAR)';
+                psu = '450W 80+ Bronze (200 SAR)';
+                totalPrice = 1500 + (storage === 'SSD only' ? 400 : 250) + (cooling.includes('Liquid') ? 400 : 150);
+            } else {
+                cpu = 'Intel Core i5 12400 (1000 SAR)';
+                gpu = 'Integrated Graphics';
+                ram = '16GB DDR4 (300 SAR)';
+                motherboard = 'ASUS Prime B560M (500 SAR)';
+                caseType = 'Compact ATX Case (300 SAR)';
+                psu = '450W 80+ Bronze (200 SAR)';
+                totalPrice = 2000 + (storage === 'SSD + HDD' ? 650 : 400) + (cooling.includes('Liquid') ? 400 : 150);
+            }
+        } else if (purpose === 'Office Work') {
+            if (budget <= 2500) {
+                cpu = 'Intel Pentium Gold G6400 (250 SAR)';
+                gpu = 'Integrated Intel UHD Graphics (0 SAR)';
+                ram = '8GB DDR4 (150 SAR)';
+                motherboard = 'Gigabyte B460M DS3H (350 SAR)';
+                caseType = 'Compact Micro-ATX Case (150 SAR)';
+                psu = '450W 80+ Bronze (150 SAR)';
+                totalPrice = 1050 + (storage === 'SSD only' ? 400 : 250) + (cooling.includes('Liquid') ? 400 : 150);
+            } else if (budget <= 5000) {
+                cpu = 'Intel Core i3 12100F (350 SAR)';
+                gpu = 'Integrated Intel UHD Graphics (0 SAR)';
+                ram = '16GB DDR4 (300 SAR)';
+                motherboard = 'ASUS Prime H610M (400 SAR)';
+                caseType = 'Compact Micro-ATX Case (150 SAR)';
+                psu = '450W 80+ Bronze (150 SAR)';
+                totalPrice = 1350 + (storage === 'SSD + HDD' ? 650 : 400) + (cooling.includes('Liquid') ? 400 : 150);
+            } else {
+                cpu = 'Intel Core i5 12400 (1000 SAR)';
+                gpu = 'Integrated Graphics';
+                ram = '16GB DDR4 (300 SAR)';
+                motherboard = 'ASUS Prime B560M (500 SAR)';
+                caseType = 'Compact ATX Case (300 SAR)';
+                psu = '450W 80+ Bronze (200 SAR)';
+                totalPrice = 2000 + (storage === 'SSD + HDD' ? 650 : 400) + (cooling.includes('Liquid') ? 400 : 150);
+            }
+        }
+
+        // Display recommendations
+        document.getElementById('cpu').innerHTML = `<strong>CPU:</strong> ${cpu}`;
+        document.getElementById('gpu').innerHTML = `<strong>GPU:</strong> ${gpu}`;
+        document.getElementById('ram').innerHTML = `<strong>RAM:</strong> ${ram}`;
+        document.getElementById('storage').innerHTML = `<strong>Storage:</strong> ${storageType}`;
+        document.getElementById('motherboard').innerHTML = `<strong>Motherboard:</strong> ${motherboard}`;
+        document.getElementById('case').innerHTML = `<strong>Case:</strong> ${caseType}`;
+        document.getElementById('psu').innerHTML = `<strong>PSU:</strong> ${psu}`;
+        document.getElementById('cooling').innerHTML = `<strong>Cooling System:</strong> ${cooling}`;
+        document.getElementById('aesthetics').innerHTML = `<strong>Aesthetics:</strong> ${rgb}`;
+        document.getElementById('price').innerHTML = `<strong>Total Price:</strong> ${totalPrice} SAR`;
+    </script>
+</body>
+</html>

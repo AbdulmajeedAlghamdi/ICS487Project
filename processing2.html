@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Choosing Your PC Components</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Choosing your PC Components...</h1>
+        <div class="loader"></div>
+        <p>We are trying to get the best PC Components for you... Please wait...</p>
+    </div>
+    <script>
+        setTimeout(() => {
+            // Retrieve query parameters
+            const params = new URLSearchParams(window.location.search);
+            // Redirect to results.html with query parameters
+            window.location.href = `results.html?${params.toString()}`;
+        }, 3000); // Wait for 3 seconds
+    </script>
+</body>
+</html>
+
+
+
